@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --primary: #C9748F;
+  --primary-light: #D98A9F;
+  --primary-dark: #B05E78;
+  --secondary: #F5E6D3;
+  --accent: #8B6B8A;
+  --dark: #2D2025;
+  --surface: #FDF7F2;
+  --text: #3A2A30;
+  --text-muted: #7A6268;
+  --border: #EDD9CB;
+  --shadow: rgba(45, 32, 37, 0.08);
+  --shadow-md: rgba(45, 32, 37, 0.14);
+  --shadow-lg: rgba(45, 32, 37, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--text);
+  background: var(--surface);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-mono-accent {
+  font-family: 'DM Mono', monospace;
+}
+
+@layer base {
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(160deg, var(--secondary) 0%, #FDF0E8 40%, var(--surface) 100%);
+  }
+
+  .gradient-rose {
+    background: linear-gradient(135deg, #F9EBE8 0%, #F0D9E0 100%);
+  }
+
+  .card-shadow {
+    box-shadow: 0 2px 12px var(--shadow), 0 1px 4px var(--shadow);
+  }
+
+  .card-shadow-hover {
+    box-shadow: 0 8px 32px var(--shadow-md), 0 2px 8px var(--shadow);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkmark {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.checkmark-path {
+  stroke-dasharray: 100;
+  animation: checkmark 0.5s ease-out forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--secondary); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
