@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float    @default(0)
+  type        String
+  thumbnail   String?
+  file        String?
+  externalUrl String?
+  ctaLabel    String   @default("Get It Now")
+  badge       String?
+  status      String   @default("active")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  purchases   Purchase[]
+  downloads   Download[]
+}
+
+model Purchase {
+  id              String   @id @default(cuid())
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id])
+  customerEmail   String
+  customerName    String?
+  stripeSessionId String   @unique
+  amount          Float
+  createdAt       DateTime @default(now())
+}
+
+model Download {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  email       String
+  token       String   @unique
+  used        Boolean  @default(false)
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  source    String?
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  quote       String
+  authorName  String
+  avatarUrl   String?
+  source      String?
+  starRating  Int      @default(5)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model SiteSettings {
+  id                    String  @id @default("singleton")
+  creatorName           String  @default("Emma Frey")
+  tagline               String  @default("")
+  avatarUrl             String?
+  bio                   String?
+  workWithMeUrl         String?
+  instagramUrl          String?
+  tiktokUrl             String?
+  youtubeUrl            String?
+  pinterestUrl          String?
+  facebookUrl           String?
+  newsletterHeadline    String  @default("Get the free guide")
+  newsletterSubheadline String  @default("Join thousands of women building income online")
+  newsletterButtonText  String  @default("Yes, Send It to Me!")
+  bannerText            String?
+  bannerLink            String?
+  bannerActive          Boolean @default(false)
+  footerText            String  @default("")
+}
+
+model AdminUser {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+}
